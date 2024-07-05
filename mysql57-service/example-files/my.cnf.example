@@ -1,0 +1,12 @@
+[mysqld]
+general_log = 1
+general_log_file = /var/lib/mysql/general.log
+character-set-server = utf8mb4
+collation-server = utf8_unicode_ci
+skip-character-set-client-handshake
+
+[mysql]
+default-character-set = utf8
+
+[client]
+default-character-set = utf8

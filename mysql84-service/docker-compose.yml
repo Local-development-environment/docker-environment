@@ -1,0 +1,26 @@
+services:
+  # Database mysql 8.4
+  db_84:
+    image: mysql:8.4
+    container_name: mysql_db84
+    command: --mysql-native-password=ON
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    ports:
+      - 3384:3306
+    volumes:
+      - "./data:/var/lib/mysql"
+      - "./etc/mysql/my.cnf:/etc/mysql/my.cnf"
+    networks:
+      - db_net
+
+# Before use, you must create a db_net network.
+# This network is shared among all sql servers
+networks:
+  db_net:
+    external: false
+    name: db_net

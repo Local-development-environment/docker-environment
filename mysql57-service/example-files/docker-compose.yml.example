@@ -1,0 +1,24 @@
+services:
+# Database mysql 5.7
+# If connection refuse run cli command - alter USER 'root'@'localhost' identified by 'password'
+  db_57:
+    image: mysql:5.7
+    container_name: mysql_db57
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    ports:
+      - "3357:3306"
+    volumes:
+      - "./data:/var/lib/mysql"
+      - "./etc/mysql/my.cnf:/etc/mysql/my.cnf"
+    networks:
+      - mysql
+
+# Networks
+networks:
+  mysql:
+    external: true

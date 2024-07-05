@@ -1,0 +1,25 @@
+services:
+  # Database mysql 8.4
+  db_84:
+    image: mysql:8.4
+    container_name: mysql_db8
+    restart: unless-stopped
+    command: --mysql-native-password=ON
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL8_ROOT_PASSWORD}
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_AUTH_PLUGIN: caching_sha2_password
+    ports:
+      - 3384:3306
+    volumes:
+      - "./data:/var/lib/mysql"
+      - "./etc/mysql/my.cnf:/etc/mysql/my.cnf"
+    networks:
+      - mysql
+
+# Networks
+networks:
+  mysql:
+    name: mysql
