@@ -1,0 +1,20 @@
+services:
+  # Database postgres:14.1
+  db_14:
+    image: postgres:14.1-alpine
+    container_name: pgsql_db14
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root_password
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: test_db
+    ports:
+      - '5414:5432'
+    volumes:
+      - "./data:/var/lib/postgresql/data/pgdata"
+      - "./etc/pgsql/postgresql.conf:/var/lib/pgsql/data/postgresql.conf"
+networks:
+  db_net:
+    external: false
+    name: db_net
