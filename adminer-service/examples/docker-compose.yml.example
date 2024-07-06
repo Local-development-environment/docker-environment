@@ -8,7 +8,7 @@ services:
     networks:
       - db_net
 
-# db_network has already created by any database service
+# db_net network has already created by any database service
 networks:
   db_net:
     external: true

@@ -1,3 +1,4 @@
 /mysql84-service/.env
 /mysql57-service/.env
 /.idea/
+/*/docker-compose.yml

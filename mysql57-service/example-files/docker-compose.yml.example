@@ -16,9 +16,11 @@ services:
       - "./data:/var/lib/mysql"
       - "./etc/mysql/my.cnf:/etc/mysql/my.cnf"
     networks:
-      - mysql
+      - db_net
 
-# Networks
+# Before use, you must create a db_net network in line - name: db_net.
+# This network is shared among all sql servers
 networks:
-  mysql:
-    external: true
+  db_net:
+    name: db_net
+    external: false
