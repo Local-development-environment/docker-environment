@@ -1,8 +1,8 @@
 services:
-  # Database postgres:14.1
-  db_14:
-    image: postgres:14.1-alpine
-    container_name: pgsql_db14
+  # Database postgres:16.3
+  db_16:
+    image: postgres:16.3-alpine
+    container_name: pgsql_db16
     restart: unless-stopped
     environment:
       POSTGRES_USER: root
@@ -10,7 +10,7 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
       POSTGRES_DB: test_db
     ports:
-      - '5414:5432'
+      - '5416:5432'
     volumes:
       - "./data/pgdata:/var/lib/postgresql/data/pgdata"
       - "./etc/pgsql/postgresql.conf:/var/lib/pgsql/data/postgresql.conf"

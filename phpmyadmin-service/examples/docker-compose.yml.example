@@ -8,6 +8,11 @@ services:
     restart: unless-stopped
     environment:
       PMA_HOSTS: db_84, db_57
+#      MYSQL_ROOT_PASSWORD: ${PMA_PASSWORD}
+      PMA_USER: ${PMA_USER}
+      PMA_PASSWORD: ${PMA_PASSWORD}
+    volumes:
+      - ./etc/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
     networks:
       - db_net
 

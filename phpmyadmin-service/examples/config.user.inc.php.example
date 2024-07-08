@@ -1,0 +1,10 @@
+<?php
+
+$i=0;
+$i++;
+$cfg['Servers'][$i]['user']          = 'root';
+$cfg['Servers'][$i]['password']      = 'root_password'; // use here your password
+$cfg['Servers'][$i]['auth_type']     = 'config';
+
+$cfg['Servers'][$i]['controluser']   = 'root';
+$cfg['Servers'][$i]['controlpass']   = 'root_password;
