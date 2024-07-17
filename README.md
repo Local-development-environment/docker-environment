@@ -1,6 +1,6 @@
-# Docker containers SQL database services (_for only local environment_).
+# SQL databases docker containers (_for only local environment_).
 
 ## Introduction
 
-When I start a new project I need to have a lot of things to work on. The SQL database is always needed, so it wouldn't be 
-bad to have it already prepared.
+Each time when I start a new project I need to have a lot of tools to work with. I always need a SQL database, so it 
+wouldn't be bad to have some different DBMS (database management system) already existing.

@@ -40,7 +40,12 @@ downPgSQL14:
 	@docker compose --env-file ./.env -f psql14-service/docker-compose.yml down
 
 dumpPgSQL14:
-	@docker exec -i pgsql_db14 /bin/bash -c "PGPASSWORD=${DB_ROOT_PASSWORD} pg_dumpall -U root" > ./psql14-service/backups/all-db-psql14.sql
+	@docker exec -i pgsql_db14 pg_dumpall -F t -U root > ./psql14-service/backups/all-db-psql14.tar
+
+restorePgSQL14:
+	@#cat ./psql14-service/backups/all-db-psql14.sql | docker exec -i pgsql_db14 psql -U root -d test_db
+	@#docker exec -i pgsql_db14 psql -U root test_db < ./psql14-service/backups/all-db-psql14.sql
+	@docker exec -i pgsql_db14 pg_restore --dbname test_db -f ./psql14-service/backups/all-db-psql14.tar
 
 # PgSQL14 service ******************************************************************************************************
 runPgSQL16:
@@ -48,7 +53,7 @@ runPgSQL16:
 	@docker --log-level ERROR compose --env-file ./.env -f psql16-service/docker-compose.yml up -d
 
 downPgSQL16:
-	@docker --env-file ./.env -f psql16-service/docker-compose.yml down
+	@docker compose --env-file ./.env -f psql16-service/docker-compose.yml down
 
 dumpPgSQL16:
 	@docker exec -i pgsql_db16 /bin/bash -c "PGPASSWORD=${DB_ROOT_PASSWORD} pg_dumpall -U root" > ./psql16-service/backups/all-db-psql16.sql
@@ -56,13 +61,26 @@ dumpPgSQL16:
 # adminer service ******************************************************************************************************
 runAdminer:
 	@docker network ls|grep db_net > /dev/null || docker network create --driver bridge db_net
-	@cd ./adminer-service && docker --log-level ERROR compose up -d
+	@docker --log-level ERROR compose --env-file ./.env -f adminer-service/docker-compose.yml up -d
+
+downAdminer:
+	@docker compose --env-file ./.env -f adminer-service/docker-compose.yml down
 
 # phpMyAdmin service ******************************************************************************************************
 runPhpMyAdmin:
 	@docker network ls|grep db_net > /dev/null || docker network create --driver bridge db_net
-	@cd ./phpmyadmin-service && docker --log-level ERROR compose --env-file ./.env up -d
+	@docker --log-level ERROR compose --env-file ./.env -f phpmyadmin-service/docker-compose.yml up -d
 
+downPhpMyAdmin:
+	@docker compose --env-file ./.env -f phpmyadmin-service/docker-compose.yml down
+
+# pgadmin service ******************************************************************************************************
+runPgAdmin:
+	@docker network ls|grep db_net > /dev/null || docker network create --driver bridge db_net
+	@docker --log-level ERROR compose --env-file ./.env -f pgadmin-service/docker-compose.yml up -d
+
+downPgAdmin:
+	@docker compose --env-file ./.env -f pgadmin-service/docker-compose.yml down
 
 
 runAllDBServices:
@@ -73,3 +91,4 @@ runAllDBServices:
 	@docker --log-level ERROR compose --env-file ./.env -f psql16-service/docker-compose.yml up -d
 	@docker --log-level ERROR compose --env-file ./.env -f adminer-service/docker-compose.yml up -d
 	@docker --log-level ERROR compose --env-file ./.env -f phpmyadmin-service/docker-compose.yml up -d
+	@docker --log-level ERROR compose --env-file ./.env -f pgadmin-service/docker-compose.yml up -d
