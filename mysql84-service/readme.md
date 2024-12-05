@@ -9,7 +9,7 @@ user@iphost2:/home/sunday/projects/finnice/app-fin/public/site/images/slides
 ### Backup
 ```bash
 docker exec CONTAINER /usr/bin/mysqldump -u root --password=root DATABASE > backup.sql
-
+docker exec CONTAINER /usr/bin/mysqldump -u root --password=root_password --add-drop-database --databases NAME_DB > mysql84-service/backups/NAME_DB.sql
 docker exec CONTAINER sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' > /some/path/on/your/host/all-databases.sql
 ```
 
