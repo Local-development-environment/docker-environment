@@ -47,16 +47,23 @@ restorePgSQL14:
 	@#docker exec -i pgsql_db14 psql -U root test_db < ./psql14-service/backups/all-db-psql14.sql
 	@docker exec -i pgsql_db14 pg_restore --dbname test_db -f ./psql14-service/backups/all-db-psql14.tar
 
-# PgSQL14 service ******************************************************************************************************
+# PgSQL16 service ******************************************************************************************************
 runPgSQL16:
 	@docker network ls|grep db_net > /dev/null || docker network create --driver bridge db_net
 	@docker --log-level ERROR compose --env-file ./.env -f psql16-service/docker-compose.yml up -d
+	@#chown -R sunday:sunday ./psql16-service/data/
 
 downPgSQL16:
 	@docker compose --env-file ./.env -f psql16-service/docker-compose.yml down
 
 dumpPgSQL16:
-	@docker exec -i pgsql_db16 /bin/bash -c "PGPASSWORD=${DB_ROOT_PASSWORD} pg_dumpall -U root" > ./psql16-service/backups/all-db-psql16.sql
+	@#docker exec -i pgsql_db16 /bin/bash -c "PGPASSWORD=${DB_ROOT_PASSWORD} pg_dumpall -U root" > ./psql16-service/backups/all-db-psql16.sql
+	@docker exec -i pgsql_db16 pg_dump -U root core > ./psql16-service/backups/core1.sql
+
+restorePgSQL16:
+	@#cat ./psql14-service/backups/all-db-psql14.sql | docker exec -i pgsql_db14 psql -U root -d test_db
+	@docker exec -i pgsql_db16 psql -U root DB_NAME < ./psql16-service/backups/FILE_NAME.sql
+	@#docker exec -i pgsql_db16 pg_restore --dbname test_db -f ./psql14-service/backups/FILE_NAME.sql
 
 # adminer service ******************************************************************************************************
 runAdminer:

@@ -7,12 +7,12 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root_password
-      PGDATA: /var/lib/postgresql/data/pgdata
+#      PGDATA: /var/lib/postgresql/data/pgdata
       POSTGRES_DB: test_db
     ports:
       - '5414:5432'
     volumes:
-      - "./data/pgdata:/var/lib/postgresql/data/pgdata"
+      - pgdata14:/var/lib/postgresql/data
       - "./etc/pgsql/postgresql.conf:/var/lib/pgsql/data/postgresql.conf"
     networks:
       - db_net
@@ -21,3 +21,8 @@ networks:
   db_net:
     external: false
     name: db_net
+
+volumes:
+  pgdata14:
+    driver: local
+    name: pgdata14
