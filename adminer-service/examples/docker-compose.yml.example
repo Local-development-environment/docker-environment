@@ -1,8 +1,9 @@
 services:
-# adminer
+  # adminer
   adminer:
     image: adminer
     container_name: adminer
+    restart: always
     ports:
       - 8080:8080
     networks:
@@ -11,4 +12,5 @@ services:
 # db_net network has already created by any database service
 networks:
   db_net:
-    external: true
+    external: false
+    name: db_net

@@ -1,0 +1,23 @@
+services:
+  pgadmin4:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: always
+    ports:
+      - "8083:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: acwstudio2018@gmail
+      PGADMIN_DEFAULT_PASSWORD: 251861962
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - db_net
+
+  # db_net network has already created by any database service
+networks:
+  db_net:
+    external: false
+    name: db_net
+
+volumes:
+  pgadmin-data:

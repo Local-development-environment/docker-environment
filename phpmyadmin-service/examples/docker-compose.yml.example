@@ -4,7 +4,7 @@ services:
     image: phpmyadmin
     container_name: phpmyadmin
     ports:
-      - 8081:80
+      - 8082:80
     restart: unless-stopped
     environment:
       PMA_HOSTS: db_84, db_57
@@ -19,4 +19,5 @@ services:
 # db_net network has already created by any database service
 networks:
   db_net:
-    external: true
+    external: false
+    name: db_net

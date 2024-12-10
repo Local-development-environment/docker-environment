@@ -25,5 +25,10 @@ $ docker exec -i pgsql_db16 pg_dump -U root core > ./psql16-service/backups/FILE
 
 ### restore postgres DB
 ```shell
-docker exec -i pgsql_db16 psql -U root DB_NAME < ./psql16-service/backups/FILE_NAME.sql
+$ docker exec -i pgsql_db16 psql -U root DB_NAME < ./psql16-service/backups/FILE_NAME.sql
+```
+
+### dump and restore DB at the same time
+```shell
+$ docker exec -i pg_old_container_name /bin/bash -c "PGPASSWORD=pg_password pg_dump --username pg_username database_name" | docker exec -i pg_new_container_name /bin/bash -c "PGPASSWORD=pg_password psql --username pg_username database_name"
 ```
