@@ -20,7 +20,7 @@ restoreMySQL84:
 # MySQL57 service ******************************************************************************************************
 runMySQL57:
 	@docker network ls|grep db_net > /dev/null || docker network create --driver bridge db_net
-	@@docker --log-level ERROR compose --env-file ./.env -f mysql57-service/docker-compose.yml up -d
+	@docker --log-level ERROR compose --env-file ./.env -f mysql57-service/docker-compose.yml up -d
 
 downMySQL57:
 	@docker compose --env-file ./.env -f mysql57-service/docker-compose.yml down
