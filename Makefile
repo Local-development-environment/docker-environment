@@ -61,9 +61,9 @@ dumpPgSQL16:
 	@docker exec -i pgsql_db16 pg_dump -U root core > ./psql16-service/backups/core1.sql
 
 restorePgSQL16:
-	@#cat ./psql14-service/backups/all-db-psql14.sql | docker exec -i pgsql_db14 psql -U root -d test_db
+	@#cat ./psql16-service/backups/all-db-psql16.sql | docker exec -i pgsql_db16 psql -U root -d test_db
 	@docker exec -i pgsql_db16 psql -U root DB_NAME < ./psql16-service/backups/FILE_NAME.sql
-	@#docker exec -i pgsql_db16 pg_restore --dbname test_db -f ./psql14-service/backups/FILE_NAME.sql
+	@#docker exec -i pgsql_db16 pg_restore --dbname test_db -f ./pgsql_db16-service/backups/FILE_NAME.sql
 
 # adminer service ******************************************************************************************************
 runAdminer:
