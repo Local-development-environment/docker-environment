@@ -58,7 +58,7 @@ downPgSQL16:
 
 dumpPgSQL16:
 	@#docker exec -i pgsql_db16 /bin/bash -c "PGPASSWORD=${DB_ROOT_PASSWORD} pg_dumpall -U root" > ./psql16-service/backups/all-db-psql16.sql
-	@docker exec -i pgsql_db16 pg_dump -U root core > ./psql16-service/backups/core1.sql
+	@docker exec -i pgsql_db16 pg_dump -U root core > ./psql16-service/backups/core.sql
 
 restorePgSQL16:
 	@#cat ./psql16-service/backups/all-db-psql16.sql | docker exec -i pgsql_db16 psql -U root -d test_db
